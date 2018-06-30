@@ -8,8 +8,7 @@ var killed_containers = [],
       containerClasses : ["UFIComment"],
       imageLinkClasses : ["UFIImageBlockImage"]
     }
-  };
-  
+  };  
   
 function getMutedList(value) {
   chrome.storage.sync.get("muted_list", function (data) {
@@ -47,7 +46,17 @@ function ghost() {
         });
       });
     });
+
+    var reactions = document.getElementsByClassName("_2x4v")
+    _.each(reactions, function(reaction){
+        var text = reaction.innerHTML
+        if(text.contains("__User__")){
+          reaction.innerHTML = reaction.innerHTML.replace("__User__", "")
+        }      
+    });
+    
 }
+String.prototype.contains = function(str) { return this.indexOf(str) != -1; };
 
 function removeUrlParams(profileUrl) {
   var pretrimmedUrl, trimmedUrl;
